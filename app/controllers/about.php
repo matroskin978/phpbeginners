@@ -1,7 +1,5 @@
 <?php
 
-define("MYAPP", true);
-
 require 'funcs.php';
 
 $title = 'My Blog :: About';

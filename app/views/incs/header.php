@@ -1,4 +1,3 @@
-<?php defined("MYAPP") or die('Forbidden'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
