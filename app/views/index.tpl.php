@@ -9,9 +9,9 @@
                 <?php foreach ($posts as $post) : ?>
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="post/<?= $post['slug'] ?>"><?= $post['title'] ?></a></h5>
-                            <p class="card-text"><?= $post['desc'] ?></p>
-                            <a href="post/<?= $post['slug'] ?>">Go somewhere</a>
+                            <h5 class="card-title"><a href="post?id=<?= $post['id'] ?>"><?= $post['title'] ?></a></h5>
+                            <p class="card-text"><?= $post['excerpt'] ?></p>
+                            <a href="post?id=<?= $post['id'] ?>">Go somewhere</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
