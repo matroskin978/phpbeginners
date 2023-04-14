@@ -7,5 +7,8 @@ require CORE . '/classes/Db.php';
 
 $db_config = require CONFIG . '/db.php';
 $db = new Db($db_config);
+/* $db2 = new Db($db_config);
+dump($db);
+dd($db2); */
 
 require CORE . '/router.php';
