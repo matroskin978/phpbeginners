@@ -1,5 +1,11 @@
 <?php
 
+namespace myfrm;
+
+use PDO;
+use PDOException;
+use PDOStatement;
+
 final class Db
 {
 

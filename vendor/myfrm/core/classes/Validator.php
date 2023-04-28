@@ -1,5 +1,7 @@
 <?php
 
+namespace myfrm;
+
 class Validator
 {
 

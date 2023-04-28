@@ -1,6 +1,6 @@
 <?php
 
-require_once CORE . '/classes/Validator.php';
+use myfrm\Validator;
 
 /**
  * @var Db $db
