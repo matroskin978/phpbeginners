@@ -3,20 +3,31 @@
 use myfrm\Validator;
 
 /**
- * @var Db $db
+ * @var \myfrm\Db $db
  */
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fillable = ['title', 'content', 'excerpt'];
     $data = load($fillable);
 
+    /**
+     * [
+     * 'title' => 'Explicabo Enim corp',
+     * 'excerpt' => 'Expl',
+     * 'content' => 'Explicabo Enim corp',
+     * 'email' => 'mail@mail.com',
+     * ]
+     */
+
     // validation
     $validator = new Validator();
-    $validation = $validator->validate([
+    /*$validation = $validator->validate([
         'title' => 'Explicabo Enim corp',
         'excerpt' => 'Expl',
         'content' => 'Explicabo Enim corp',
         'email' => 'mail@mail.com',
+        'password' => '123456',
+        'repassword' => '123456',
     ], [
         'title' => [
             'required' => true,
@@ -35,35 +46,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'email' => [
             'email' => true,
         ],
+        'password' => [
+            'required' => true,
+            'min' => 6,
+        ],
+        'repassword' => [
+            'match' => 'password',
+        ],
     ]);
 
-    if ($validation->hasErrors()) {
-        print_arr($validation->getErrors());
-    } else {
-        echo 'SUCCESS';
-    }
+    print_arr($validation->getErrors());
+    die;*/
 
-    die;
+    $validation = $validator->validate($data, [
+        'title' => [
+            'required' => true,
+            'min' => 5,
+            'max' => 190,
+        ],
+        'excerpt' => [
+            'required' => true,
+            'min' => 10,
+            'max' => 190,
+        ],
+        'content' => [
+            'required' => true,
+            'min' => 10,
+        ],
+        'email' => [
+            'email' => true,
+        ],
+        'password' => [
+            'required' => true,
+            'min' => 6,
+        ],
+        'repassword' => [
+            'match' => 'password',
+        ],
+    ]);
 
-    /* if (empty($data['title'])) {
-        $errors['title'] = 'Title is required';
-    }
-    if (empty($data['content'])) {
-        $errors['content'] = 'Content is required';
-    }
-    if (empty($data['excerpt'])) {
-        $errors['excerpt'] = 'Excerpt is required';
-    } */
-
-    if (empty($errors)) {
+    if (!$validation->hasErrors()) {
         if ($db->query("INSERT INTO posts (`title`, `content`, `excerpt`) VALUES (:title, :content, :excerpt)", $data)) {
-            echo 'OK';
+            $_SESSION['success'] = 'OK';
         } else {
-            echo 'DB Error';
+            $_SESSION['error'] = 'DB Error';
         }
-
-        // redirect('/posts/create');
+        redirect();
     }
+
 }
 
 $title = "My Blog :: New post";
