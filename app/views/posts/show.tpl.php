@@ -1,4 +1,4 @@
-<?php require 'incs/header.php' ?>
+<?php require VIEWS . '/incs/header.php' ?>
 
 <main class="main py-3">
 
@@ -15,4 +15,4 @@
 
 </main>
 
-<?php require 'incs/footer.php' ?>
+<?php require VIEWS . '/incs/footer.php' ?>

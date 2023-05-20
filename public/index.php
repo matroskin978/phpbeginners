@@ -13,4 +13,9 @@ require CORE . '/funcs.php';
 $db_config = require CONFIG . '/db.php';
 $db = (Db::getInstance())->getConnection($db_config);
 
-require CORE . '/router.php';
+$router = new \myfrm\Router();
+require CONFIG . '/routes.php';
+$router->match();
+
+
+//require CORE . '/router.php';

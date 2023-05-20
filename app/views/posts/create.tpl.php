@@ -1,5 +1,5 @@
 <?php
-require 'incs/header.php';
+require VIEWS . '/incs/header.php';
 
 /**
  * @var \myfrm\Validator $validation
@@ -14,7 +14,7 @@ require 'incs/header.php';
 
                 <h1>New post</h1>
 
-                <form action="" method="post">
+                <form action="/posts" method="post">
 
                     <div class="mb-3">
                         <label for="title" class="form-label">Post title</label>
@@ -46,4 +46,4 @@ require 'incs/header.php';
 
 </main>
 
-<?php require 'incs/footer.php' ?>
+<?php require VIEWS . '/incs/footer.php' ?>

@@ -20,7 +20,7 @@ function dd($data)
     die;
 }
 
-function abort($code = 404)
+function abort($code = 404, $title = '404 - Not found')
 {
     http_response_code($code);
     require VIEWS . "/errors/{$code}.tpl.php";
