@@ -1,6 +1,6 @@
 <?php
 
-global $db;
+$db = \myfrm\App::get(\myfrm\Db::class);
 $title = 'My Blog :: About';
 
 $post = '<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam, repudiandae iusto mollitia, natus repellendus excepturi obcaecati, dicta labore similique minima alias nostrum dolore soluta nam laborum eos inventore eum porro?</p>

@@ -1,9 +1,6 @@
 <?php
 
-global $db;
-/**
- * @var Db $db
- */
+$db = \myfrm\App::get(\myfrm\Db::class);
 
 $id = $_GET['id'] ?? 0;
 
