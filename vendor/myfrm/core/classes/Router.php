@@ -22,6 +22,27 @@ class Router
         $matches = false;
         foreach ($this->routes as $route) {
             if (($route['uri'] === $this->uri) && ($route['method'] === strtoupper($this->method))) {
+
+                if ($route['middleware']) {
+                    $middleware = MIDDLEWARE[$route['middleware']] ?? false;
+                    if (!$middleware) {
+                        throw new \Exception("Incorrect middleware {$route['middleware']}");
+                    }
+                    (new $middleware)->handle();
+                }
+
+                /*if ($route['middleware'] == 'guest') {
+                    if (check_auth()) {
+                        redirect('/');
+                    }
+                }
+
+                if ($route['middleware'] == 'auth') {
+                    if (!check_auth()) {
+                        redirect('/register');
+                    }
+                }*/
+
                 require CONTROLLERS . "/{$route['controller']}";
                 $matches = true;
                 break;
@@ -32,28 +53,40 @@ class Router
         }
     }
 
+    public function only($middleware)
+    {
+//        dump($this->routes);
+//        dump($middleware);
+//        dump(count($this->routes) - 1);
+//        dump(array_key_last($this->routes));
+        $this->routes[array_key_last($this->routes)]['middleware'] = $middleware;
+        return $this;
+    }
+
     public function add($uri, $controller, $method)
     {
         $this->routes[] = [
             'uri' => $uri,
             'controller' => $controller,
             'method' => $method,
+            'middleware' => null,
         ];
+        return $this;
     }
 
     public function get($uri, $controller)
     {
-        $this->add($uri, $controller, 'GET');
+        return $this->add($uri, $controller, 'GET');
     }
 
     public function post($uri, $controller)
     {
-        $this->add($uri, $controller, 'POST');
+        return $this->add($uri, $controller, 'POST');
     }
 
     public function delete($uri, $controller)
     {
-        $this->add($uri, $controller, 'DELETE');
+        return $this->add($uri, $controller, 'DELETE');
     }
 
 }

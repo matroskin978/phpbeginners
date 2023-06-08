@@ -34,6 +34,17 @@
                                 <a class="nav-link" href="posts/create">New Post</a>
                             </li>
                         </ul>
+
+                        <ul class="d-flex text-white align-items-center list-unstyled m-0 gap-3">
+                            <?php if (check_auth()): ?>
+                                <li><?= $_SESSION['user']['name']; ?></li>
+                                <li><a class="nav-link" href="logout">Logout</a></li>
+                            <?php else: ?>
+                                <li><a class="nav-link" href="register">Register</a></li>
+                                <li><a class="nav-link" href="login">Login</a></li>
+                            <?php endif; ?>
+                        </ul>
+
                     </div>
                 </div>
             </nav>
