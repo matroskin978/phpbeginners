@@ -16,6 +16,14 @@
                     </div>
                 <?php endforeach; ?>
 
+                <hr>
+
+                <?php
+                for ($i = 1; $i <= $pages_cnt; $i++) {
+                    echo "<a href='?page={$i}'>{$i}</a> ";
+                }
+                ?>
+
             </div>
 
             <?php require VIEWS . '/incs/sidebar.php' ?>
