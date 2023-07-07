@@ -15,6 +15,7 @@ print_arr($pagination);
 $start = $pagination->getStart();
 var_dump($start);
 
+
 die;
 $per_page = 4;
 $total = $db->query("SELECT COUNT(*) FROM posts")->getColumn();
