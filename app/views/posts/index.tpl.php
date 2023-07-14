@@ -6,6 +6,8 @@
         <div class="row">
             <div class="col-md-8">
 
+                <?= $pagination ?>
+
                 <?php foreach ($posts as $post) : ?>
                     <div class="card mb-3">
                         <div class="card-body">
@@ -18,11 +20,7 @@
 
                 <hr>
 
-                <?php
-                for ($i = 1; $i <= $pages_cnt; $i++) {
-                    echo "<a href='?page={$i}'>{$i}</a> ";
-                }
-                ?>
+                <?= $pagination ?>
 
             </div>
 
