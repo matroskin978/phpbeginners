@@ -21,7 +21,7 @@ class Router
     {
         $matches = false;
         foreach ($this->routes as $route) {
-            if (($route['uri'] === $this->uri) && ($route['method'] === strtoupper($this->method))) {
+            if (($route['uri'] === $this->uri) && (in_array($this->method, $route['method']))) {
 
                 if ($route['middleware']) {
                     $middleware = MIDDLEWARE[$route['middleware']] ?? false;
@@ -30,18 +30,6 @@ class Router
                     }
                     (new $middleware)->handle();
                 }
-
-                /*if ($route['middleware'] == 'guest') {
-                    if (check_auth()) {
-                        redirect('/');
-                    }
-                }
-
-                if ($route['middleware'] == 'auth') {
-                    if (!check_auth()) {
-                        redirect('/register');
-                    }
-                }*/
 
                 require CONTROLLERS . "/{$route['controller']}";
                 $matches = true;
@@ -55,16 +43,17 @@ class Router
 
     public function only($middleware)
     {
-//        dump($this->routes);
-//        dump($middleware);
-//        dump(count($this->routes) - 1);
-//        dump(array_key_last($this->routes));
         $this->routes[array_key_last($this->routes)]['middleware'] = $middleware;
         return $this;
     }
 
     public function add($uri, $controller, $method)
     {
+        if (is_array($method)) {
+            $method = array_map('strtoupper', $method);
+        } else {
+            $method = [$method];
+        }
         $this->routes[] = [
             'uri' => $uri,
             'controller' => $controller,

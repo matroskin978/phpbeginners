@@ -7,13 +7,14 @@ class Validator
 
     protected $errors = [];
     protected $data_items;
-    protected $rules_list = ['required', 'min', 'max', 'email', 'match'];
+    protected $rules_list = ['required', 'min', 'max', 'email', 'match', 'unique'];
     protected $messages = [
         'required' => 'The :fieldname: field is required',
         'min' => 'The :fieldname: field must be a minimun :rulevalue: characters',
         'max' => 'The :fieldname: field must be a maximum :rulevalue: characters',
         'email' => 'Not valid email',
         'match' => 'The :fieldname: field must match :rulevalue: field',
+        'unique' => 'The :fieldname: is already taken',
     ];
 
     public function validate($data = [], $rules = [])
@@ -100,5 +101,11 @@ class Validator
     protected function match($value, $rule_value)
     {
         return $value === $this->data_items[$rule_value];
+    }
+
+    protected function unique($value, $rule_value)
+    {
+        $data = explode(':', $rule_value);
+        return (!db()->query("SELECT {$data[1]} FROM {$data[0]} WHERE {$data[1]} = ?", [$value])->getColumn());
     }
 }

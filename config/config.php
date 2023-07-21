@@ -8,3 +8,4 @@ define("APP", ROOT . '/app');
 define("CONTROLLERS", APP . '/controllers');
 define("VIEWS", APP . '/views');
 define("PATH", 'http://test.loc');
+define("ERRORS_LOG_FILE", ROOT . '/errors.log');
