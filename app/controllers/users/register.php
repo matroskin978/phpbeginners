@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $_SESSION['error'] = 'DB Error';
         }
-        redirect('/');
+        redirect(PATH);
     }
 
 }
