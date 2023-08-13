@@ -6,9 +6,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     /** @var \myfrm\Db $db */
     $db = \myfrm\App::get(\myfrm\Db::class);
+    $data = load(['name', 'email', 'password']);
 
-    $fillable = ['name', 'email', 'password'];
-    $data = load($fillable);
+//    dump($_POST);
+//    dump($_FILES);
+
+    if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === 0) {
+        $data['avatar'] = $_FILES['avatar'];
+    } else {
+        $data['avatar'] = [];
+    }
 
     $validator = new \myfrm\Validator();
 
@@ -26,7 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'required' => true,
             'min' => 6,
         ],
+        'avatar' => [
+            'required' => true,
+            'ext' => 'jpg|png',
+            'size' => 1_048_576,
+        ],
     ]);
+
+    dd($validation->getErrors());
 
     if (!$validation->hasErrors()) {
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);

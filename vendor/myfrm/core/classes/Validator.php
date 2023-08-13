@@ -7,7 +7,7 @@ class Validator
 
     protected $errors = [];
     protected $data_items;
-    protected $rules_list = ['required', 'min', 'max', 'email', 'match', 'unique'];
+    protected $rules_list = ['required', 'min', 'max', 'email', 'match', 'unique', 'ext', 'size'];
     protected $messages = [
         'required' => 'The :fieldname: field is required',
         'min' => 'The :fieldname: field must be a minimun :rulevalue: characters',
@@ -15,6 +15,8 @@ class Validator
         'email' => 'Not valid email',
         'match' => 'The :fieldname: field must match :rulevalue: field',
         'unique' => 'The :fieldname: is already taken',
+        'ext' => 'File :fieldname: extension does not match. Allowed :rulevalue:',
+        'size' => 'File :fieldname: is too big. Allowed :rulevalue: bytes',
     ];
 
     public function validate($data = [], $rules = [])
@@ -80,7 +82,7 @@ class Validator
 
     protected function required($value, $rule_value)
     {
-        return !empty(trim($value));
+        return !empty($value);
     }
 
     protected function min($value, $rule_value)
@@ -107,5 +109,23 @@ class Validator
     {
         $data = explode(':', $rule_value);
         return (!db()->query("SELECT {$data[1]} FROM {$data[0]} WHERE {$data[1]} = ?", [$value])->getColumn());
+    }
+
+    protected function ext($value, $rule_value)
+    {
+        if (empty($value['name'])) {
+            return true;
+        }
+        $file_ext = get_file_ext($value['name']);
+        $allowed_exts = explode('|', $rule_value);
+        return in_array($file_ext, $allowed_exts);
+    }
+
+    protected function size($value, $rule_value)
+    {
+        if (empty($value['size'])) {
+            return true;
+        }
+        return $value['size'] <= $rule_value;
     }
 }
