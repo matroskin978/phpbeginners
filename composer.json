@@ -4,5 +4,7 @@
             "myfrm\\": "vendor/myfrm/core/classes"
         }
     },
-    "require": {}
+    "require": {
+        "ext-pdo": "*"
+    }
 }

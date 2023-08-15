@@ -2,6 +2,7 @@
 
 define("ROOT", dirname(__DIR__));
 const WWW = ROOT . '/public';
+const UPLOADS = WWW . '/uploads';
 const CONFIG = ROOT . '/config';
 const CORE = ROOT . '/vendor/myfrm/core';
 const APP = ROOT . '/app';
