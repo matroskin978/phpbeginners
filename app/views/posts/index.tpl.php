@@ -11,9 +11,9 @@
                 <?php foreach ($posts as $post) : ?>
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="posts?id=<?= $post['id'] ?>"><?= h($post['title']) ?></a></h5>
+                            <h5 class="card-title"><a href="posts/<?= $post['slug'] ?>"><?= h($post['title']) ?></a></h5>
                             <p class="card-text"><?= $post['excerpt'] ?></p>
-                            <a href="posts?id=<?= $post['id'] ?>">Go somewhere</a>
+                            <a href="posts/<?= $post['slug'] ?>">Go somewhere</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
